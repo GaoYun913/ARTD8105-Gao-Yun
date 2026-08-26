@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>岩壁叙事 Petroglyph Narratives</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23120d09' width='100' height='100'/><text y='72' x='18' font-size='64' fill='%23c45c3a'>岩</text></svg>" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand-mark">岩</div>
+          <div>
+            <h1>岩壁叙事</h1>
+            <p>Petroglyph Narratives</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="tool-toggle" role="tablist" aria-label="工具">
+            <button type="button" id="tool-select" class="active">选择</button>
+            <button type="button" id="tool-stamp">放置</button>
+            <button type="button" id="tool-paint">涂绘</button>
+          </div>
+          <button type="button" class="btn" id="btn-undo">撤销</button>
+          <button type="button" class="btn" id="btn-redo">重做</button>
+          <button type="button" class="btn" id="btn-help">说明</button>
+          <button type="button" class="btn primary" id="btn-export">导出画面</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="library">
+          <div class="panel-head">
+            <h2>图符库</h2>
+            <span>拖到岩壁，或点选后点击岩壁放置</span>
+          </div>
+          <div class="cats" id="cats"></div>
+          <div class="motif-grid" id="motif-grid"></div>
+        </aside>
+
+        <section class="stage" id="stage">
+          <canvas id="wall"></canvas>
+          <div class="torch" id="torch"></div>
+          <div class="vignette"></div>
+          <div class="caption" id="caption"></div>
+          <div class="stage-hud">
+            <span id="hud-count">0 个图符</span>
+            <span id="hud-zoom">100%</span>
+            <span id="hud-tool">选择</span>
+          </div>
+        </section>
+
+        <aside class="inspector">
+          <div class="panel-head">
+            <h2>生成控制</h2>
+            <span>随时改色、变形，书写叙事</span>
+          </div>
+          <div class="inspector-body">
+            <div class="group">
+              <h3>岩壁</h3>
+              <div class="seg" id="wall-seg"></div>
+              <div class="row">
+                <label>火把</label>
+                <input type="range" id="torch-level" min="0" max="100" value="70" />
+                <output id="torch-level-out">70</output>
+              </div>
+            </div>
+
+            <div class="group" id="empty-hint">
+              <p class="hint">
+                从左侧选取史前岩画图符，点到岩壁上组成画面。选中图符后，可在此调整颜色、形状与叙事角色。
+              </p>
+            </div>
+
+            <div class="group" id="fig-controls" hidden>
+              <h3>颜色 · 矿物颜料</h3>
+              <div class="swatches" id="swatches"></div>
+              <div class="row">
+                <label>自定义</label>
+                <input type="color" id="color" value="#9C3B2A" />
+              </div>
+              <div class="row">
+                <label>浓度</label>
+                <input type="range" id="opacity" min="20" max="100" value="88" />
+                <output>88</output>
+              </div>
+              <div class="row">
+                <label>风化</label>
+                <input type="range" id="weathering" min="0" max="100" value="18" />
+                <output>18</output>
+              </div>
+
+              <h3>形状 · 生成</h3>
+              <div class="row">
+                <label>大小</label>
+                <input type="range" id="size" min="4" max="40" value="14" />
+                <output>14</output>
+              </div>
+              <div class="row">
+                <label>横向</label>
+                <input type="range" id="stretchX" min="40" max="180" value="100" />
+                <output>100</output>
+              </div>
+              <div class="row">
+                <label>纵向</label>
+                <input type="range" id="stretchY" min="40" max="180" value="100" />
+                <output>100</output>
+              </div>
+              <div class="row">
+                <label>旋转</label>
+                <input type="range" id="rotation" min="-180" max="180" value="0" />
+                <output>0</output>
+              </div>
+              <div class="row">
+                <label>倾斜</label>
+                <input type="range" id="lean" min="-40" max="40" value="0" />
+                <output>0</output>
+              </div>
+              <div class="row">
+                <label>膨胀</label>
+                <input type="range" id="inflate" min="-30" max="50" value="0" />
+                <output>0</output>
+              </div>
+              <div class="row">
+                <label>粗糙</label>
+                <input type="range" id="roughness" min="0" max="100" value="28" />
+                <output>28</output>
+              </div>
+              <div class="row">
+                <label>圆润</label>
+                <input type="range" id="smoothness" min="0" max="100" value="72" />
+                <output>72</output>
+              </div>
+              <div class="row">
+                <label>线宽</label>
+                <input type="range" id="weight" min="6" max="40" value="14" />
+                <output>14</output>
+              </div>
+
+              <h3>画法</h3>
+              <div class="seg" id="style-seg"></div>
+              <div class="actions" style="margin-top: 8px">
+                <button type="button" class="btn" id="btn-flip">水平翻转</button>
+              </div>
+
+              <h3>叙事角色</h3>
+              <input type="text" id="role" maxlength="20" placeholder="例如：猎物、萨满、观星人" />
+
+              <div class="actions" style="margin-top: 10px">
+                <button type="button" class="btn" id="btn-front">上移一层</button>
+                <button type="button" class="btn" id="btn-back">下移一层</button>
+                <button type="button" class="btn" id="btn-dup">复制</button>
+                <button type="button" class="btn" id="btn-del">删除</button>
+              </div>
+            </div>
+
+            <div class="group">
+              <h3>画面标题</h3>
+              <input type="text" id="title" maxlength="24" placeholder="为这面岩壁命名" />
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="narratives">
+        <div class="narr-label">
+          叙事模板
+          <small>一键生成，再微调</small>
+        </div>
+        <div id="narr-btns" style="display: flex; flex: 1"></div>
+        <button type="button" class="narr-btn" id="btn-random">
+          <b>随机叙事</b>
+          <span>打乱颜料与形状</span>
+        </button>
+        <button type="button" class="narr-btn" id="btn-clear">
+          <b>清空岩壁</b>
+          <span>只留石面</span>
+        </button>
+      </footer>
+    </div>
+
+    <div class="overlay" id="help" hidden>
+      <div class="sheet">
+        <h2>在岩壁上书写神话</h2>
+        <p>
+          这是一面可生成、可改写的史前岩画工坊。把野牛、手印、太阳神等图符放到岩壁上，调整矿物颜料与轮廓，让它们组成狩猎、祭祀、迁徙或星象的叙事。
+        </p>
+        <ul>
+          <li>点选图符后点击岩壁放置；也可直接把图符拖上岩壁。</li>
+          <li>拖动图符移动；滚轮缩放视野；按住空格拖动画布。</li>
+          <li>右侧滑杆实时改变颜色、拉伸、膨胀、粗糙与画法。</li>
+          <li>底部模板生成完整叙事，生成后仍可继续改每一个形。</li>
+          <li><kbd>Delete</kbd> 删除　<kbd>Ctrl+Z</kbd> 撤销　<kbd>Ctrl+D</kbd> 复制　<kbd>F</kbd> 翻转</li>
+        </ul>
+        <button type="button" class="btn primary" id="btn-help-close">开始刻画</button>
+      </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
