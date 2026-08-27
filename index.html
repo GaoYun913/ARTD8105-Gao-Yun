@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>色块叠层 · Composition Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <div>
+            <h1>色块叠层</h1>
+            <p>有序叠加 · 色彩 / 透明度 / 渐变</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="shuffleBtn" type="button">重排种子</button>
+          <button id="resetBtn" type="button" class="ghost">重置</button>
+          <button id="exportBtn" type="button" class="accent">导出画面</button>
+        </div>
+      </header>
+
+      <main class="stage">
+        <section class="canvas-wrap">
+          <canvas id="field" width="1600" height="1000" aria-label="色块构图画布"></canvas>
+        </section>
+
+        <aside class="panel" aria-label="变量调节">
+          <div class="panel-scroll">
+            <section class="group">
+              <h2>结构</h2>
+              <label>
+                <span>布局方式</span>
+                <select id="layout">
+                  <option value="cascade">层叠偏移</option>
+                  <option value="grid">网格交错</option>
+                  <option value="fan">扇形展开</option>
+                  <option value="ribbon">条带织纹</option>
+                </select>
+              </label>
+              <label>
+                <span>色块数量 <em id="countVal">28</em></span>
+                <input id="count" type="range" min="6" max="80" value="28" />
+              </label>
+              <label>
+                <span>宽度 <em id="widthVal">42%</em></span>
+                <input id="width" type="range" min="12" max="88" value="42" />
+              </label>
+              <label>
+                <span>高度 <em id="heightVal">18%</em></span>
+                <input id="height" type="range" min="6" max="70" value="18" />
+              </label>
+              <label>
+                <span>水平偏移 <em id="offsetXVal">18</em></span>
+                <input id="offsetX" type="range" min="0" max="80" value="18" />
+              </label>
+              <label>
+                <span>垂直偏移 <em id="offsetYVal">14</em></span>
+                <input id="offsetY" type="range" min="0" max="80" value="14" />
+              </label>
+              <label>
+                <span>旋转 <em id="rotationVal">-6°</em></span>
+                <input id="rotation" type="range" min="-45" max="45" value="-6" />
+              </label>
+              <label>
+                <span>圆角 <em id="radiusVal">8</em></span>
+                <input id="radius" type="range" min="0" max="80" value="8" />
+              </label>
+            </section>
+
+            <section class="group">
+              <h2>色彩</h2>
+              <div class="swatches">
+                <label class="color">
+                  <span>色相 A</span>
+                  <input id="colorA" type="color" value="#f25c2a" />
+                </label>
+                <label class="color">
+                  <span>色相 B</span>
+                  <input id="colorB" type="color" value="#1f3a5f" />
+                </label>
+                <label class="color">
+                  <span>色相 C</span>
+                  <input id="colorC" type="color" value="#e8d5a3" />
+                </label>
+              </div>
+              <label>
+                <span>色相差幅 <em id="spreadVal">42</em></span>
+                <input id="spread" type="range" min="0" max="100" value="42" />
+              </label>
+              <label>
+                <span>饱和度 <em id="saturationVal">78%</em></span>
+                <input id="saturation" type="range" min="0" max="100" value="78" />
+              </label>
+              <label>
+                <span>明度 <em id="lightnessVal">54%</em></span>
+                <input id="lightness" type="range" min="12" max="88" value="54" />
+              </label>
+              <label>
+                <span>背景</span>
+                <input id="bg" type="color" value="#0e1014" />
+              </label>
+            </section>
+
+            <section class="group">
+              <h2>透明度</h2>
+              <label>
+                <span>整体不透明度 <em id="opacityVal">72%</em></span>
+                <input id="opacity" type="range" min="8" max="100" value="72" />
+              </label>
+              <label>
+                <span>层间衰减 <em id="fadeVal">28%</em></span>
+                <input id="fade" type="range" min="0" max="80" value="28" />
+              </label>
+              <label>
+                <span>混合模式</span>
+                <select id="blend">
+                  <option value="source-over">正常叠放</option>
+                  <option value="multiply">正片叠底</option>
+                  <option value="screen">滤色</option>
+                  <option value="overlay">叠加</option>
+                  <option value="soft-light">柔光</option>
+                </select>
+              </label>
+            </section>
+
+            <section class="group">
+              <h2>渐变</h2>
+              <label>
+                <span>渐变强度 <em id="gradientVal">64%</em></span>
+                <input id="gradient" type="range" min="0" max="100" value="64" />
+              </label>
+              <label>
+                <span>渐变角度 <em id="angleVal">128°</em></span>
+                <input id="angle" type="range" min="0" max="360" value="128" />
+              </label>
+              <label>
+                <span>渐变类型</span>
+                <select id="gradientType">
+                  <option value="linear">线性</option>
+                  <option value="radial">径向</option>
+                </select>
+              </label>
+              <label>
+                <span>边缘羽化 <em id="featherVal">12</em></span>
+                <input id="feather" type="range" min="0" max="40" value="12" />
+              </label>
+            </section>
+
+            <section class="group">
+              <h2>光影</h2>
+              <label>
+                <span>投影深度 <em id="shadowVal">18</em></span>
+                <input id="shadow" type="range" min="0" max="60" value="18" />
+              </label>
+              <label>
+                <span>纸感纹理 <em id="grainVal">16%</em></span>
+                <input id="grain" type="range" min="0" max="60" value="16" />
+              </label>
+              <label>
+                <span>描边 <em id="strokeVal">0.4</em></span>
+                <input id="stroke" type="range" min="0" max="8" step="0.1" value="0.4" />
+              </label>
+            </section>
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
