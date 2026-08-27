@@ -1,0 +1,132 @@
+:root {
+  --ink: #1d2430;
+  --muted: #5b6574;
+  --panel: rgba(255, 252, 247, 0.92);
+  --line: #e4d9c8;
+  --accent: #e59a4a;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Songti SC", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #d7e8f5;
+  color: var(--ink);
+}
+
+.app {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) 1fr;
+  min-height: 100vh;
+}
+
+.panel {
+  padding: 28px 24px 36px;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  overflow: auto;
+}
+
+.panel-header h1 {
+  margin: 4px 0 8px;
+  font-size: 28px;
+  letter-spacing: 0.02em;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.lede {
+  margin: 0 0 8px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.group {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.group h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.control span {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.control em {
+  font-style: normal;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+select,
+input[type="color"] {
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+input[type="color"] {
+  width: 100%;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.stage {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+#scene {
+  width: min(100%, 1100px);
+  height: auto;
+  border-radius: 28px;
+  box-shadow: 0 24px 60px rgba(70, 110, 150, 0.22);
+  background: #9fd4ff;
+}
+
+@media (max-width: 860px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
