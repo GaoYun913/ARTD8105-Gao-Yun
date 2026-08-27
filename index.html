@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>色块叠层 · Composition Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+:root {
+  --ink: #ece7dc;
+  --muted: #9a9488;
+  --line: rgba(236, 231, 220, 0.12);
+  --panel: #15171c;
+  --panel-2: #1c1f26;
+  --accent: #f25c2a;
+  --bg: #0b0c0f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Instrument Sans", "Noto Sans SC", sans-serif;
+}
+
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #14161b, #101217);
+}
+
+.brand {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #f25c2a 0%, #1f3a5f 55%, #e8d5a3 100%);
+  box-shadow: 8px 6px 0 #e8d5a3, 16px 12px 0 #1f3a5f;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+}
+
+.brand p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--ink);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+button.ghost {
+  background: transparent;
+}
+
+button.accent {
+  background: var(--accent);
+  border-color: transparent;
+  color: #1a0b06;
+  font-weight: 600;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  min-height: 0;
+}
+
+.canvas-wrap {
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(242, 92, 42, 0.08), transparent 32%),
+    radial-gradient(circle at 80% 90%, rgba(31, 58, 95, 0.18), transparent 40%),
+    #0b0c0f;
+}
+
+canvas {
+  width: min(100%, 1100px);
+  height: auto;
+  max-height: calc(100vh - 130px);
+  background: #0e1014;
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.panel {
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+  min-height: 0;
+}
+
+.panel-scroll {
+  height: 100%;
+  overflow: auto;
+  padding: 10px 16px 28px;
+}
+
+.group {
+  padding: 14px 0 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.group h2 {
+  margin: 0 0 12px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+label span {
+  display: flex;
+  justify-content: space-between;
+}
+
+label em {
+  font-style: normal;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+select,
+input[type="color"] {
+  width: 100%;
+  height: 34px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--ink);
+  border-radius: 8px;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.swatches .color span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+@media (max-width: 980px) {
+  .stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(320px, 48vh) 1fr;
+  }
+
+  .panel {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <div>
+            <h1>色块叠层</h1>
+            <p>有序叠加 · 色彩 / 透明度 / 渐变</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="shuffleBtn" type="button">重排种子</button>
+          <button id="resetBtn" type="button" class="ghost">重置</button>
+          <button id="exportBtn" type="button" class="accent">导出画面</button>
+        </div>
+      </header>
+
+      <main class="stage">
+        <section class="canvas-wrap">
+          <canvas id="field" width="1600" height="1000" aria-label="色块构图画布"></canvas>
+        </section>
+
+        <aside class="panel" aria-label="变量调节">
+          <div class="panel-scroll">
+            <section class="group">
+              <h2>结构</h2>
+              <label>
+                <span>布局方式</span>
+                <select id="layout">
+                  <option value="cascade">层叠偏移</option>
+                  <option value="grid">网格交错</option>
+                  <option value="fan">扇形展开</option>
+                  <option value="ribbon">条带织纹</option>
+                </select>
+              </label>
+              <label>
+                <span>色块数量 <em id="countVal">28</em></span>
+                <input id="count" type="range" min="6" max="80" value="28" />
+              </label>
+              <label>
+                <span>宽度 <em id="widthVal">42%</em></span>
+                <input id="width" type="range" min="12" max="88" value="42" />
+              </label>
+              <label>
+                <span>高度 <em id="heightVal">18%</em></span>
+                <input id="height" type="range" min="6" max="70" value="18" />
+              </label>
+              <label>
+                <span>水平偏移 <em id="offsetXVal">18</em></span>
+                <input id="offsetX" type="range" min="0" max="80" value="18" />
+              </label>
+              <label>
+                <span>垂直偏移 <em id="offsetYVal">14</em></span>
+                <input id="offsetY" type="range" min="0" max="80" value="14" />
+              </label>
+              <label>
+                <span>旋转 <em id="rotationVal">-6°</em></span>
+                <input id="rotation" type="range" min="-45" max="45" value="-6" />
+              </label>
+              <label>
+                <span>圆角 <em id="radiusVal">8</em></span>
+                <input id="radius" type="range" min="0" max="80" value="8" />
+              </label>
+            </section>
+
+            <section class="group">
+              <h2>色彩</h2>
+              <div class="swatches">
+                <label class="color">
+                  <span>色相 A</span>
+                  <input id="colorA" type="color" value="#f25c2a" />
+                </label>
+                <label class="color">
+                  <span>色相 B</span>
+                  <input id="colorB" type="color" value="#1f3a5f" />
+                </label>
+                <label class="color">
+                  <span>色相 C</span>
+                  <input id="colorC" type="color" value="#e8d5a3" />
+                </label>
+              </div>
+              <label>
+                <span>色相差幅 <em id="spreadVal">42</em></span>
+                <input id="spread" type="range" min="0" max="100" value="42" />
+              </label>
+              <label>
+                <span>饱和度 <em id="saturationVal">78%</em></span>
+                <input id="saturation" type="range" min="0" max="100" value="78" />
+              </label>
+              <label>
+                <span>明度 <em id="lightnessVal">54%</em></span>
+                <input id="lightness" type="range" min="12" max="88" value="54" />
+              </label>
+              <label>
+                <span>背景</span>
+                <input id="bg" type="color" value="#0e1014" />
+              </label>
+            </section>
+
+            <section class="group">
+              <h2>透明度</h2>
+              <label>
+                <span>整体不透明度 <em id="opacityVal">72%</em></span>
+                <input id="opacity" type="range" min="8" max="100" value="72" />
+              </label>
+              <label>
+                <span>层间衰减 <em id="fadeVal">28%</em></span>
+                <input id="fade" type="range" min="0" max="80" value="28" />
+              </label>
+              <label>
+                <span>混合模式</span>
+                <select id="blend">
+                  <option value="source-over">正常叠放</option>
+                  <option value="multiply">正片叠底</option>
+                  <option value="screen">滤色</option>
+                  <option value="overlay">叠加</option>
+                  <option value="soft-light">柔光</option>
+                </select>
+              </label>
+            </section>
+
+            <section class="group">
+              <h2>渐变</h2>
+              <label>
+                <span>渐变强度 <em id="gradientVal">64%</em></span>
+                <input id="gradient" type="range" min="0" max="100" value="64" />
+              </label>
+              <label>
+                <span>渐变角度 <em id="angleVal">128°</em></span>
+                <input id="angle" type="range" min="0" max="360" value="128" />
+              </label>
+              <label>
+                <span>渐变类型</span>
+                <select id="gradientType">
+                  <option value="linear">线性</option>
+                  <option value="radial">径向</option>
+                </select>
+              </label>
+              <label>
+                <span>边缘羽化 <em id="featherVal">12</em></span>
+                <input id="feather" type="range" min="0" max="40" value="12" />
+              </label>
+            </section>
+
+            <section class="group">
+              <h2>光影</h2>
+              <label>
+                <span>投影深度 <em id="shadowVal">18</em></span>
+                <input id="shadow" type="range" min="0" max="60" value="18" />
+              </label>
+              <label>
+                <span>纸感纹理 <em id="grainVal">16%</em></span>
+                <input id="grain" type="range" min="0" max="60" value="16" />
+              </label>
+              <label>
+                <span>描边 <em id="strokeVal">0.4</em></span>
+                <input id="stroke" type="range" min="0" max="8" step="0.1" value="0.4" />
+              </label>
+            </section>
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script>
+const canvas = document.getElementById("field");
+const ctx = canvas.getContext("2d");
+
+const controls = {
+  layout: document.getElementById("layout"),
+  count: document.getElementById("count"),
+  width: document.getElementById("width"),
+  height: document.getElementById("height"),
+  offsetX: document.getElementById("offsetX"),
+  offsetY: document.getElementById("offsetY"),
+  rotation: document.getElementById("rotation"),
+  radius: document.getElementById("radius"),
+  colorA: document.getElementById("colorA"),
+  colorB: document.getElementById("colorB"),
+  colorC: document.getElementById("colorC"),
+  spread: document.getElementById("spread"),
+  saturation: document.getElementById("saturation"),
+  lightness: document.getElementById("lightness"),
+  bg: document.getElementById("bg"),
+  opacity: document.getElementById("opacity"),
+  fade: document.getElementById("fade"),
+  blend: document.getElementById("blend"),
+  gradient: document.getElementById("gradient"),
+  angle: document.getElementById("angle"),
+  gradientType: document.getElementById("gradientType"),
+  feather: document.getElementById("feather"),
+  shadow: document.getElementById("shadow"),
+  grain: document.getElementById("grain"),
+  stroke: document.getElementById("stroke"),
+};
+
+const labels = {
+  count: document.getElementById("countVal"),
+  width: document.getElementById("widthVal"),
+  height: document.getElementById("heightVal"),
+  offsetX: document.getElementById("offsetXVal"),
+  offsetY: document.getElementById("offsetYVal"),
+  rotation: document.getElementById("rotationVal"),
+  radius: document.getElementById("radiusVal"),
+  spread: document.getElementById("spreadVal"),
+  saturation: document.getElementById("saturationVal"),
+  lightness: document.getElementById("lightnessVal"),
+  opacity: document.getElementById("opacityVal"),
+  fade: document.getElementById("fadeVal"),
+  gradient: document.getElementById("gradientVal"),
+  angle: document.getElementById("angleVal"),
+  feather: document.getElementById("featherVal"),
+  shadow: document.getElementById("shadowVal"),
+  grain: document.getElementById("grainVal"),
+  stroke: document.getElementById("strokeVal"),
+};
+
+const defaults = Object.fromEntries(
+  Object.entries(controls).map(([key, el]) => [key, el.value])
+);
+
+let seed = 8105;
+
+function mulberry32(a) {
+  return function () {
+    let t = (a += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function hexToRgb(hex) {
+  const n = hex.replace("#", "");
+  const v = parseInt(n, 16);
+  return { r: (v >> 16) & 255, g: (v >> 8) & 255, b: v & 255 };
+}
+
+function rgbToHsl({ r, g, b }) {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
+  const d = max - min;
+  if (d !== 0) {
+    s = d / (1 - Math.abs(2 * l - 1));
+    switch (max) {
+      case r:
+        h = ((g - b) / d) % 6;
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      default:
+        h = (r - g) / d + 4;
+    }
+    h *= 60;
+    if (h < 0) h += 360;
+  }
+  return { h, s, l };
+}
+
+function hslToRgb(h, s, l) {
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  if (h < 60) [r, g, b] = [c, x, 0];
+  else if (h < 120) [r, g, b] = [x, c, 0];
+  else if (h < 180) [r, g, b] = [0, c, x];
+  else if (h < 240) [r, g, b] = [0, x, c];
+  else if (h < 300) [r, g, b] = [x, 0, c];
+  else [r, g, b] = [c, 0, x];
+  return {
+    r: Math.round((r + m) * 255),
+    g: Math.round((g + m) * 255),
+    b: Math.round((b + m) * 255),
+  };
+}
+
+function mixHsl(a, b, t) {
+  let dh = b.h - a.h;
+  if (dh > 180) dh -= 360;
+  if (dh < -180) dh += 360;
+  return {
+    h: (a.h + dh * t + 360) % 360,
+    s: a.s + (b.s - a.s) * t,
+    l: a.l + (b.l - a.l) * t,
+  };
+}
+
+function rgba({ r, g, b }, a) {
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+function roundRect(context, x, y, w, h, r) {
+  const radius = Math.min(r, w / 2, h / 2);
+  context.beginPath();
+  context.moveTo(x + radius, y);
+  context.arcTo(x + w, y, x + w, y + h, radius);
+  context.arcTo(x + w, y + h, x, y + h, radius);
+  context.arcTo(x, y + h, x, y, radius);
+  context.arcTo(x, y, x + w, y, radius);
+  context.closePath();
+}
+
+function state() {
+  return {
+    layout: controls.layout.value,
+    count: Number(controls.count.value),
+    width: Number(controls.width.value) / 100,
+    height: Number(controls.height.value) / 100,
+    offsetX: Number(controls.offsetX.value),
+    offsetY: Number(controls.offsetY.value),
+    rotation: Number(controls.rotation.value),
+    radius: Number(controls.radius.value),
+    colorA: controls.colorA.value,
+    colorB: controls.colorB.value,
+    colorC: controls.colorC.value,
+    spread: Number(controls.spread.value) / 100,
+    saturation: Number(controls.saturation.value) / 100,
+    lightness: Number(controls.lightness.value) / 100,
+    bg: controls.bg.value,
+    opacity: Number(controls.opacity.value) / 100,
+    fade: Number(controls.fade.value) / 100,
+    blend: controls.blend.value,
+    gradient: Number(controls.gradient.value) / 100,
+    angle: Number(controls.angle.value),
+    gradientType: controls.gradientType.value,
+    feather: Number(controls.feather.value),
+    shadow: Number(controls.shadow.value),
+    grain: Number(controls.grain.value) / 100,
+    stroke: Number(controls.stroke.value),
+  };
+}
+
+function updateLabels() {
+  const s = state();
+  labels.count.textContent = String(s.count);
+  labels.width.textContent = `${Math.round(s.width * 100)}%`;
+  labels.height.textContent = `${Math.round(s.height * 100)}%`;
+  labels.offsetX.textContent = String(controls.offsetX.value);
+  labels.offsetY.textContent = String(controls.offsetY.value);
+  labels.rotation.textContent = `${s.rotation}°`;
+  labels.radius.textContent = String(s.radius);
+  labels.spread.textContent = String(controls.spread.value);
+  labels.saturation.textContent = `${controls.saturation.value}%`;
+  labels.lightness.textContent = `${controls.lightness.value}%`;
+  labels.opacity.textContent = `${controls.opacity.value}%`;
+  labels.fade.textContent = `${controls.fade.value}%`;
+  labels.gradient.textContent = `${controls.gradient.value}%`;
+  labels.angle.textContent = `${s.angle}°`;
+  labels.feather.textContent = String(s.feather);
+  labels.shadow.textContent = String(s.shadow);
+  labels.grain.textContent = `${controls.grain.value}%`;
+  labels.stroke.textContent = Number(controls.stroke.value).toFixed(1);
+}
+
+function paletteColors(s) {
+  const a = rgbToHsl(hexToRgb(s.colorA));
+  const b = rgbToHsl(hexToRgb(s.colorB));
+  const c = rgbToHsl(hexToRgb(s.colorC));
+  return [a, b, c].map((color) => ({
+    h: color.h,
+    s: color.s * 0.35 + s.saturation * 0.65,
+    l: color.l * 0.35 + s.lightness * 0.65,
+  }));
+}
+
+function colorAt(palette, t, jitter) {
+  const scaled = t * (palette.length - 1);
+  const i = Math.floor(scaled);
+  const f = scaled - i;
+  const base = mixHsl(palette[i], palette[Math.min(i + 1, palette.length - 1)], f);
+  return {
+    h: (base.h + jitter * 48 + 360) % 360,
+    s: Math.min(1, Math.max(0, base.s + jitter * 0.08)),
+    l: Math.min(0.9, Math.max(0.08, base.l + jitter * 0.06)),
+  };
+}
+
+function layoutRects(s, rand) {
+  const { width: W, height: H } = canvas;
+  const n = s.count;
+  const w = W * s.width;
+  const h = H * s.height;
+  const rects = [];
+
+  if (s.layout === "grid") {
+    const cols = Math.ceil(Math.sqrt(n * (W / H)));
+    const rows = Math.ceil(n / cols);
+    const gapX = (W - w) / Math.max(1, cols - 1);
+    const gapY = (H - h) / Math.max(1, rows - 1);
+    for (let i = 0; i < n; i += 1) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      const stagger = (row % 2) * (s.offsetX * 1.8);
+      rects.push({
+        x: col * gapX + stagger - w * 0.08,
+        y: row * gapY - h * 0.08,
+        w,
+        h,
+        rot: s.rotation + (rand() - 0.5) * 4,
+      });
+    }
+  } else if (s.layout === "fan") {
+    const cx = W * 0.5;
+    const cy = H * 0.58;
+    for (let i = 0; i < n; i += 1) {
+      const t = n === 1 ? 0.5 : i / (n - 1);
+      const rot = s.rotation + (t - 0.5) * (s.offsetX * 1.6);
+      rects.push({
+        x: cx - w / 2 + (t - 0.5) * s.offsetX * 4,
+        y: cy - h / 2 - t * s.offsetY * 3.2,
+        w,
+        h,
+        rot,
+      });
+    }
+  } else if (s.layout === "ribbon") {
+    const rows = Math.max(3, Math.round(Math.sqrt(n)));
+    const cols = Math.ceil(n / rows);
+    for (let i = 0; i < n; i += 1) {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      const t = col / Math.max(1, cols - 1);
+      rects.push({
+        x: t * (W - w) + (row % 2 ? s.offsetX : -s.offsetX) * 0.8,
+        y: (row / Math.max(1, rows - 1)) * (H - h),
+        w: w * (0.78 + rand() * 0.28),
+        h: h * 0.72,
+        rot: s.rotation * 0.25 + (row % 2 ? 1.4 : -1.4),
+      });
+    }
+  } else {
+    const startX = W * 0.12;
+    const startY = H * 0.1;
+    for (let i = 0; i < n; i += 1) {
+      const t = i / Math.max(1, n - 1);
+      rects.push({
+        x: startX + i * (s.offsetX * 2.2) + Math.sin(t * 6) * 8,
+        y: startY + i * (s.offsetY * 2.05) + Math.cos(t * 5) * 6,
+        w: w * (0.92 + rand() * 0.12),
+        h: h * (0.88 + rand() * 0.16),
+        rot: s.rotation + (t - 0.5) * 8,
+      });
+    }
+  }
+
+  return rects;
+}
+
+function makeFill(rect, c1, c2, s) {
+  const rad = (s.angle * Math.PI) / 180;
+  if (s.gradientType === "radial") {
+    const g = ctx.createRadialGradient(
+      rect.x + rect.w * 0.35,
+      rect.y + rect.h * 0.3,
+      8,
+      rect.x + rect.w / 2,
+      rect.y + rect.h / 2,
+      Math.max(rect.w, rect.h)
+    );
+    g.addColorStop(0, rgba(c1, 1));
+    g.addColorStop(1, rgba(c2, 1));
+    return g;
+  }
+  const cx = rect.x + rect.w / 2;
+  const cy = rect.y + rect.h / 2;
+  const len = Math.hypot(rect.w, rect.h) / 2;
+  const x1 = cx - Math.cos(rad) * len;
+  const y1 = cy - Math.sin(rad) * len;
+  const x2 = cx + Math.cos(rad) * len;
+  const y2 = cy + Math.sin(rad) * len;
+  const g = ctx.createLinearGradient(x1, y1, x2, y2);
+  g.addColorStop(0, rgba(c1, 1));
+  g.addColorStop(1, rgba(c2, 1));
+  return g;
+}
+
+function drawGrain(s) {
+  if (s.grain <= 0) return;
+  const image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = image.data;
+  const amount = s.grain * 46;
+  for (let i = 0; i < data.length; i += 16) {
+    const n = (Math.random() - 0.5) * amount;
+    data[i] = Math.max(0, Math.min(255, data[i] + n));
+    data[i + 1] = Math.max(0, Math.min(255, data[i + 1] + n));
+    data[i + 2] = Math.max(0, Math.min(255, data[i + 2] + n));
+  }
+  ctx.putImageData(image, 0, 0);
+}
+
+function render() {
+  const s = state();
+  const rand = mulberry32(seed);
+  const palette = paletteColors(s);
+  const rects = layoutRects(s, rand);
+
+  ctx.globalCompositeOperation = "source-over";
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = s.bg;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.globalCompositeOperation = s.blend;
+
+  rects.forEach((rect, i) => {
+    const t = rects.length === 1 ? 0.5 : i / (rects.length - 1);
+    const jitter = (rand() - 0.5) * s.spread;
+    const cA = colorAt(palette, t, jitter);
+    const cB = colorAt(palette, Math.min(1, t + 0.28), jitter * -0.6);
+    const rgbA = hslToRgb(cA.h, cA.s, cA.l);
+    const rgbB = hslToRgb(cB.h, cB.s, cB.l);
+    const mixed = {
+      r: Math.round(rgbA.r * (1 - s.gradient) + rgbB.r * s.gradient),
+      g: Math.round(rgbA.g * (1 - s.gradient) + rgbB.g * s.gradient),
+      b: Math.round(rgbA.b * (1 - s.gradient) + rgbB.b * s.gradient),
+    };
+    const alpha = Math.max(0.08, s.opacity * (1 - t * s.fade));
+
+    ctx.save();
+    ctx.translate(rect.x + rect.w / 2, rect.y + rect.h / 2);
+    ctx.rotate((rect.rot * Math.PI) / 180);
+    ctx.translate(-(rect.x + rect.w / 2), -(rect.y + rect.h / 2));
+
+    if (s.shadow > 0) {
+      ctx.shadowColor = "rgba(0,0,0,0.38)";
+      ctx.shadowBlur = s.shadow * 1.4;
+      ctx.shadowOffsetX = s.shadow * 0.35;
+      ctx.shadowOffsetY = s.shadow * 0.55;
+    }
+
+    roundRect(ctx, rect.x, rect.y, rect.w, rect.h, s.radius);
+    if (s.gradient > 0.02) {
+      ctx.fillStyle = makeFill(rect, rgbA, mixed, s);
+    } else {
+      ctx.fillStyle = rgba(rgbA, 1);
+    }
+    ctx.globalAlpha = alpha;
+    ctx.fill();
+
+    if (s.feather > 0) {
+      ctx.shadowColor = "transparent";
+      const inset = s.feather;
+      roundRect(
+        ctx,
+        rect.x + inset,
+        rect.y + inset,
+        Math.max(4, rect.w - inset * 2),
+        Math.max(4, rect.h - inset * 2),
+        Math.max(0, s.radius - inset / 2)
+      );
+      ctx.globalAlpha = alpha * 0.18;
+      ctx.fillStyle = rgba({ r: 255, g: 255, b: 255 }, 0.35);
+      ctx.fill();
+    }
+
+    if (s.stroke > 0) {
+      ctx.shadowColor = "transparent";
+      ctx.globalAlpha = Math.min(0.9, alpha + 0.15);
+      ctx.lineWidth = s.stroke;
+      ctx.strokeStyle = "rgba(255,255,255,0.28)";
+      roundRect(ctx, rect.x, rect.y, rect.w, rect.h, s.radius);
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  });
+
+  ctx.globalCompositeOperation = "source-over";
+  ctx.globalAlpha = 1;
+  drawGrain(s);
+}
+
+function bind() {
+  Object.values(controls).forEach((el) => {
+    el.addEventListener("input", () => {
+      updateLabels();
+      render();
+    });
+    el.addEventListener("change", () => {
+      updateLabels();
+      render();
+    });
+  });
+
+  document.getElementById("shuffleBtn").addEventListener("click", () => {
+    seed = Math.floor(Math.random() * 99999);
+    render();
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    Object.entries(defaults).forEach(([key, value]) => {
+      controls[key].value = value;
+    });
+    seed = 8105;
+    updateLabels();
+    render();
+  });
+
+  document.getElementById("exportBtn").addEventListener("click", () => {
+    const link = document.createElement("a");
+    link.download = `composition-${seed}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+}
+
+updateLabels();
+bind();
+render();
+
+    </script>
+  </body>
+</html>
