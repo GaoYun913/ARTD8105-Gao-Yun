@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>飞猫 · 可交互插画</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="panel" aria-label="画面参数">
+      <header class="panel-header">
+        <p class="eyebrow">ARTD · Interactive Scene</p>
+        <h1>飞猫参数台</h1>
+        <p class="lede">拖动滑杆即可即时改变云朵形状、猫咪大小和水面波浪。</p>
+      </header>
+
+      <section class="group">
+        <h2>云朵形状</h2>
+        <label class="control">
+          <span>形态风格</span>
+          <select id="cloudStyle">
+            <option value="puffy">棉花团</option>
+            <option value="long">拉长积云</option>
+            <option value="scallop">扇贝边</option>
+            <option value="wispy">轻薄卷云</option>
+          </select>
+        </label>
+        <label class="control">
+          <span>鼓起程度 <em id="cloudPuffVal">0.72</em></span>
+          <input type="range" id="cloudPuff" min="0.25" max="1.2" step="0.01" value="0.72" />
+        </label>
+        <label class="control">
+          <span>横向拉伸 <em id="cloudStretchVal">1.00</em></span>
+          <input type="range" id="cloudStretch" min="0.55" max="1.8" step="0.01" value="1" />
+        </label>
+        <label class="control">
+          <span>起伏不规则 <em id="cloudNoiseVal">0.35</em></span>
+          <input type="range" id="cloudNoise" min="0" max="1" step="0.01" value="0.35" />
+        </label>
+      </section>
+
+      <section class="group">
+        <h2>猫咪大小</h2>
+        <label class="control">
+          <span>整体缩放 <em id="catSizeVal">1.00</em></span>
+          <input type="range" id="catSize" min="0.45" max="1.7" step="0.01" value="1" />
+        </label>
+      </section>
+
+      <section class="group">
+        <h2>水面波浪线</h2>
+        <label class="control">
+          <span>线条粗细 <em id="waveWidthVal">3.5</em></span>
+          <input type="range" id="waveWidth" min="0.8" max="12" step="0.1" value="3.5" />
+        </label>
+        <label class="control">
+          <span>波浪长短 <em id="waveLengthVal">90</em></span>
+          <input type="range" id="waveLength" min="28" max="220" step="1" value="90" />
+        </label>
+        <label class="control">
+          <span>线条颜色</span>
+          <input type="color" id="waveColor" value="#3a7ca5" />
+        </label>
+      </section>
+    </aside>
+
+    <main class="stage">
+      <svg id="scene" viewBox="0 0 960 640" role="img" aria-label="天上飞着的猫、三朵云和水面波浪">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#9fd4ff" />
+            <stop offset="55%" stop-color="#c9e8ff" />
+            <stop offset="100%" stop-color="#eef7ff" />
+          </linearGradient>
+          <linearGradient id="catFur" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f4c27a" />
+            <stop offset="100%" stop-color="#e59a4a" />
+          </linearGradient>
+          <linearGradient id="waterFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#b9e0f5" stop-opacity="0.15" />
+            <stop offset="100%" stop-color="#7ec4e4" stop-opacity="0.55" />
+          </linearGradient>
+          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#4a6a88" flood-opacity="0.18" />
+          </filter>
+        </defs>
+
+        <rect width="960" height="640" fill="url(#sky)" />
+
+        <g id="clouds" filter="url(#softShadow)"></g>
+
+        <g id="cat" transform="translate(480 268)">
+          <g id="catScale">
+            <g id="catSway">
+              <path id="tail" fill="url(#catFur)" stroke="#c97a2f" stroke-width="2.2" stroke-linejoin="round" />
+              <path id="hindLegs" fill="url(#catFur)" stroke="#c97a2f" stroke-width="2" stroke-linejoin="round" />
+              <path id="body" fill="url(#catFur)" stroke="#c97a2f" stroke-width="2.4" stroke-linejoin="round" />
+              <path id="foreLegs" fill="url(#catFur)" stroke="#c97a2f" stroke-width="2" stroke-linejoin="round" />
+              <g id="head">
+                <path d="M -42 -78 L -58 -128 L -18 -92 Z" fill="url(#catFur)" stroke="#c97a2f" stroke-width="2.2" stroke-linejoin="round" />
+                <path d="M 42 -78 L 58 -128 L 18 -92 Z" fill="url(#catFur)" stroke="#c97a2f" stroke-width="2.2" stroke-linejoin="round" />
+                <ellipse cx="0" cy="-58" rx="54" ry="46" fill="url(#catFur)" stroke="#c97a2f" stroke-width="2.4" />
+                <ellipse cx="-22" cy="-64" rx="11" ry="13" fill="#fff" />
+                <ellipse cx="22" cy="-64" rx="11" ry="13" fill="#fff" />
+                <circle cx="-18" cy="-62" r="5.2" fill="#2b2118" />
+                <circle cx="26" cy="-62" r="5.2" fill="#2b2118" />
+                <circle cx="-16" cy="-64" r="1.6" fill="#fff" />
+                <circle cx="28" cy="-64" r="1.6" fill="#fff" />
+                <path d="M -8 -46 Q 0 -38 8 -46" fill="none" stroke="#2b2118" stroke-width="2.6" stroke-linecap="round" />
+                <g stroke="#2b2118" stroke-width="1.7" stroke-linecap="round">
+                  <line x1="-52" y1="-50" x2="-18" y2="-46" />
+                  <line x1="-54" y1="-42" x2="-18" y2="-44" />
+                  <line x1="-50" y1="-34" x2="-18" y2="-42" />
+                  <line x1="18" y1="-46" x2="52" y2="-50" />
+                  <line x1="18" y1="-44" x2="54" y2="-42" />
+                  <line x1="18" y1="-42" x2="50" y2="-34" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+
+        <rect x="0" y="470" width="960" height="170" fill="url(#waterFade)" />
+        <g id="waves" fill="none" stroke-linecap="round" stroke-linejoin="round"></g>
+      </svg>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
