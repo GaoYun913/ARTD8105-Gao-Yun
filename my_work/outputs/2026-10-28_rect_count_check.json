@@ -1,0 +1,730 @@
+{
+  "checkedAt": "2026-10-28T10:16:14+08:00",
+  "source": {
+    "repository": "GaoYun913/ARTD8105-Gao-Yun",
+    "commit": "c6fb81ca0c0876cf6af5705276e79f177ce3a98d",
+    "branch": "cursor/rect-color-blocks-interface-bcba",
+    "file": "index.html",
+    "snapshot": "my_work/outputs/2026-10-28_rect_index.html",
+    "htmlSha256": "aa75660680be356a7e269c3914f75a1770ff937d8d01b2a8b592028e4688bd4c",
+    "extractedFunctionsSha256": "3b83ad59ce643601fcbe87a03812b6248158d3a1553f55e8b8962cbc5016a57d"
+  },
+  "fixed": {
+    "canvas": [
+      1600,
+      1000
+    ],
+    "seed": 8105,
+    "defaultWidthRatio": 0.42,
+    "defaultHeightRatio": 0.18,
+    "defaultOffsetX": 18,
+    "defaultOffsetY": 14,
+    "defaultRotation": -6,
+    "countSlider": [
+      6,
+      80
+    ]
+  },
+  "method": "Executed the extracted layoutRects and mulberry32 from the snapshot. Visibility uses a separating-axis test of the rotated rectangle against the canvas. Envelope is the axis-aligned bounds of all four corners, including corners outside the canvas.",
+  "defaultOffsets": [
+    {
+      "layout": "cascade",
+      "count": 6,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 6,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 182.41,
+        "minY": 49.22,
+        "maxX": 1020.43,
+        "maxY": 443.29,
+        "width": 838.03,
+        "height": 394.06
+      }
+    },
+    {
+      "layout": "cascade",
+      "count": 28,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 28,
+      "intersectingCanvas": 28,
+      "fullyInside": 19,
+      "partialOrOutside": 9,
+      "envelope": {
+        "minX": 182.41,
+        "minY": 49.22,
+        "maxX": 1912.44,
+        "maxY": 1068.93,
+        "width": 1730.03,
+        "height": 1019.71
+      }
+    },
+    {
+      "layout": "cascade",
+      "count": 80,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 31,
+      "fullyInside": 19,
+      "partialOrOutside": 61,
+      "envelope": {
+        "minX": 182.41,
+        "minY": 49.22,
+        "maxX": 3968.32,
+        "maxY": 2550.28,
+        "width": 3785.91,
+        "height": 2501.06
+      }
+    },
+    {
+      "layout": "grid",
+      "count": 6,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 0,
+      "partialOrOutside": 6,
+      "envelope": {
+        "minX": -60.84,
+        "minY": -53.33,
+        "maxX": 1553.91,
+        "maxY": 1024.57,
+        "width": 1614.75,
+        "height": 1077.9
+      }
+    },
+    {
+      "layout": "grid",
+      "count": 28,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 28,
+      "intersectingCanvas": 28,
+      "fullyInside": 12,
+      "partialOrOutside": 16,
+      "envelope": {
+        "minX": -62.83,
+        "minY": -55.59,
+        "maxX": 1586.28,
+        "maxY": 1024.79,
+        "width": 1649.11,
+        "height": 1080.38
+      }
+    },
+    {
+      "layout": "grid",
+      "count": 80,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 80,
+      "fullyInside": 55,
+      "partialOrOutside": 25,
+      "envelope": {
+        "minX": -61.59,
+        "minY": -57.13,
+        "maxX": 1587.89,
+        "maxY": 1030.38,
+        "width": 1649.48,
+        "height": 1087.51
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 6,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 6,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 417.7,
+        "minY": 378.52,
+        "maxX": 1181.54,
+        "maxY": 781.48,
+        "width": 763.84,
+        "height": 402.95
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 28,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 28,
+      "intersectingCanvas": 28,
+      "fullyInside": 28,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 417.7,
+        "minY": 378.52,
+        "maxX": 1181.54,
+        "maxY": 781.48,
+        "width": 763.84,
+        "height": 402.95
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 80,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 80,
+      "fullyInside": 80,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 417.7,
+        "minY": 378.52,
+        "maxX": 1181.54,
+        "maxY": 781.48,
+        "width": 763.84,
+        "height": 402.95
+      }
+    },
+    {
+      "layout": "ribbon",
+      "count": 6,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 3,
+      "partialOrOutside": 3,
+      "envelope": {
+        "minX": -17.27,
+        "minY": -16.16,
+        "maxX": 1555.45,
+        "maxY": 966.8,
+        "width": 1572.72,
+        "height": 982.95
+      }
+    },
+    {
+      "layout": "ribbon",
+      "count": 28,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 28,
+      "intersectingCanvas": 28,
+      "fullyInside": 19,
+      "partialOrOutside": 9,
+      "envelope": {
+        "minX": -17.29,
+        "minY": -17.2,
+        "maxX": 1654.53,
+        "maxY": 966.25,
+        "width": 1671.82,
+        "height": 983.45
+      }
+    },
+    {
+      "layout": "ribbon",
+      "count": 80,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 80,
+      "fullyInside": 67,
+      "partialOrOutside": 13,
+      "envelope": {
+        "minX": -17.31,
+        "minY": -17.2,
+        "maxX": 1543.43,
+        "maxY": 966.37,
+        "width": 1560.74,
+        "height": 983.57
+      }
+    }
+  ],
+  "offsetSweep": [
+    {
+      "layout": "cascade",
+      "count": 6,
+      "offsetX": 0,
+      "offsetY": 0,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 6,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 179.57,
+        "minY": 49.22,
+        "maxX": 891.22,
+        "maxY": 331.77,
+        "width": 711.66,
+        "height": 282.55
+      }
+    },
+    {
+      "layout": "cascade",
+      "count": 80,
+      "offsetX": 0,
+      "offsetY": 0,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 80,
+      "fullyInside": 80,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 178.56,
+        "minY": 48.78,
+        "maxX": 907.65,
+        "maxY": 343.5,
+        "width": 729.09,
+        "height": 294.72
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 6,
+      "offsetX": 0,
+      "offsetY": 0,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 6,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 456.43,
+        "minY": 455.37,
+        "maxX": 1143.57,
+        "maxY": 704.63,
+        "width": 687.13,
+        "height": 249.26
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 80,
+      "offsetX": 0,
+      "offsetY": 0,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 80,
+      "fullyInside": 80,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 456.43,
+        "minY": 455.37,
+        "maxX": 1143.57,
+        "maxY": 704.63,
+        "width": 687.13,
+        "height": 249.26
+      }
+    },
+    {
+      "layout": "cascade",
+      "count": 6,
+      "offsetX": 18,
+      "offsetY": 18,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 6,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 182.41,
+        "minY": 49.22,
+        "maxX": 1020.43,
+        "maxY": 484.29,
+        "width": 838.03,
+        "height": 435.06
+      }
+    },
+    {
+      "layout": "cascade",
+      "count": 80,
+      "offsetX": 18,
+      "offsetY": 18,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 25,
+      "fullyInside": 19,
+      "partialOrOutside": 61,
+      "envelope": {
+        "minX": 182.41,
+        "minY": 49.22,
+        "maxX": 3968.32,
+        "maxY": 3198.08,
+        "width": 3785.91,
+        "height": 3148.86
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 6,
+      "offsetX": 18,
+      "offsetY": 18,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 6,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 417.7,
+        "minY": 378.52,
+        "maxX": 1181.54,
+        "maxY": 781.48,
+        "width": 763.84,
+        "height": 402.95
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 80,
+      "offsetX": 18,
+      "offsetY": 18,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 80,
+      "fullyInside": 80,
+      "partialOrOutside": 0,
+      "envelope": {
+        "minX": 417.7,
+        "minY": 378.52,
+        "maxX": 1181.54,
+        "maxY": 781.48,
+        "width": 763.84,
+        "height": 402.95
+      }
+    },
+    {
+      "layout": "cascade",
+      "count": 6,
+      "offsetX": 80,
+      "offsetY": 80,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 5,
+      "partialOrOutside": 1,
+      "envelope": {
+        "minX": 182.41,
+        "minY": 49.22,
+        "maxX": 1702.43,
+        "maxY": 1119.79,
+        "width": 1520.03,
+        "height": 1070.56
+      }
+    },
+    {
+      "layout": "cascade",
+      "count": 80,
+      "offsetX": 80,
+      "offsetY": 80,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 6,
+      "fullyInside": 5,
+      "partialOrOutside": 75,
+      "envelope": {
+        "minX": 182.41,
+        "minY": 49.22,
+        "maxX": 14743.92,
+        "maxY": 13238.98,
+        "width": 14561.51,
+        "height": 13189.76
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 6,
+      "offsetX": 80,
+      "offsetY": 80,
+      "widthRatio": 0.42,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 5,
+      "partialOrOutside": 1,
+      "envelope": {
+        "minX": 400.97,
+        "minY": -8.64,
+        "maxX": 1227.92,
+        "maxY": 926.52,
+        "width": 826.95,
+        "height": 935.16
+      }
+    },
+    {
+      "layout": "fan",
+      "count": 80,
+      "offsetX": 80,
+      "offsetY": 80,
+      "widthRatio": 0.42,
+      "rectangles": 80,
+      "intersectingCanvas": 80,
+      "fullyInside": 78,
+      "partialOrOutside": 2,
+      "envelope": {
+        "minX": 399.74,
+        "minY": -8.64,
+        "maxX": 1230.24,
+        "maxY": 926.52,
+        "width": 830.5,
+        "height": 935.16
+      }
+    }
+  ],
+  "gridAtMaxWidth": [
+    {
+      "layout": "grid",
+      "count": 6,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.88,
+      "rectangles": 6,
+      "intersectingCanvas": 6,
+      "fullyInside": 0,
+      "partialOrOutside": 6,
+      "envelope": {
+        "minX": -118.02,
+        "minY": -96.65,
+        "maxX": 1492.94,
+        "maxY": 1067.93,
+        "width": 1610.96,
+        "height": 1164.59
+      }
+    },
+    {
+      "layout": "grid",
+      "count": 28,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.88,
+      "rectangles": 28,
+      "intersectingCanvas": 28,
+      "fullyInside": 7,
+      "partialOrOutside": 21,
+      "envelope": {
+        "minX": -118.35,
+        "minY": -101.48,
+        "maxX": 1525.33,
+        "maxY": 1068.4,
+        "width": 1643.68,
+        "height": 1169.88
+      }
+    },
+    {
+      "layout": "grid",
+      "count": 80,
+      "offsetX": 18,
+      "offsetY": 14,
+      "widthRatio": 0.88,
+      "rectangles": 80,
+      "intersectingCanvas": 80,
+      "fullyInside": 31,
+      "partialOrOutside": 49,
+      "envelope": {
+        "minX": -118.26,
+        "minY": -104.76,
+        "maxX": 1525.44,
+        "maxY": 1080.33,
+        "width": 1643.7,
+        "height": 1185.09
+      }
+    }
+  ],
+  "count6vs80AtDefaults": [
+    {
+      "layout": "cascade",
+      "envelopeWidth6": 838.03,
+      "envelopeWidth80": 3785.91,
+      "widthDelta": 2947.88,
+      "envelopeHeight6": 394.06,
+      "envelopeHeight80": 2501.06,
+      "heightDelta": 2107,
+      "intersecting6": 6,
+      "intersecting80": 31
+    },
+    {
+      "layout": "grid",
+      "envelopeWidth6": 1614.75,
+      "envelopeWidth80": 1649.48,
+      "widthDelta": 34.73,
+      "envelopeHeight6": 1077.9,
+      "envelopeHeight80": 1087.51,
+      "heightDelta": 9.61,
+      "intersecting6": 6,
+      "intersecting80": 80
+    },
+    {
+      "layout": "fan",
+      "envelopeWidth6": 763.84,
+      "envelopeWidth80": 763.84,
+      "widthDelta": 0,
+      "envelopeHeight6": 402.95,
+      "envelopeHeight80": 402.95,
+      "heightDelta": 0,
+      "intersecting6": 6,
+      "intersecting80": 80
+    },
+    {
+      "layout": "ribbon",
+      "envelopeWidth6": 1572.72,
+      "envelopeWidth80": 1560.74,
+      "widthDelta": -11.98,
+      "envelopeHeight6": 982.95,
+      "envelopeHeight80": 983.57,
+      "heightDelta": 0.62,
+      "intersecting6": 6,
+      "intersecting80": 80
+    }
+  ],
+  "cascadePrefix": {
+    "note": "The step i * offset does not use count, but t = i / (n - 1) still changes the sine, cosine and rotation of an earlier index when count changes. Rectangle i is therefore not stable. The measured deltas are only that normalized wobble, not the step.",
+    "count28IsPrefixOfCount80": false,
+    "comparedIndexes": 28,
+    "maxAbsDx": 15.99,
+    "maxAbsDy": 9.1,
+    "maxAbsDrot": 5.27
+  },
+  "frames": [
+    {
+      "layout": "cascade",
+      "layoutLabel": "层叠偏移",
+      "countLabel": "6",
+      "grainLabel": "0%",
+      "canvas": [
+        1600,
+        1000
+      ],
+      "canvasPng": "my_work/outputs/2026-10-28_rect_frames/cascade-count-6-grain0.png",
+      "pagePng": "my_work/outputs/2026-10-28_rect_frames/cascade-count-6-page.png",
+      "canvasSha256": "1d20560ef8c31b4ff3fd7de5ad7a037705257d26f1e9e62cac836af97d9b0bfe"
+    },
+    {
+      "layout": "cascade",
+      "layoutLabel": "层叠偏移",
+      "countLabel": "80",
+      "grainLabel": "0%",
+      "canvas": [
+        1600,
+        1000
+      ],
+      "canvasPng": "my_work/outputs/2026-10-28_rect_frames/cascade-count-80-grain0.png",
+      "pagePng": "my_work/outputs/2026-10-28_rect_frames/cascade-count-80-page.png",
+      "canvasSha256": "cd49345f89b6df23268f3a8e35dbb663b5f6d0f1419ef900fa1fe9161239130e"
+    },
+    {
+      "layout": "grid",
+      "layoutLabel": "网格交错",
+      "countLabel": "6",
+      "grainLabel": "0%",
+      "canvas": [
+        1600,
+        1000
+      ],
+      "canvasPng": "my_work/outputs/2026-10-28_rect_frames/grid-count-6-grain0.png",
+      "pagePng": "my_work/outputs/2026-10-28_rect_frames/grid-count-6-page.png",
+      "canvasSha256": "bb9c5b1d0e49e099a96618b19846a4ffb896033c106079b4a9885d609a00ab37"
+    },
+    {
+      "layout": "grid",
+      "layoutLabel": "网格交错",
+      "countLabel": "80",
+      "grainLabel": "0%",
+      "canvas": [
+        1600,
+        1000
+      ],
+      "canvasPng": "my_work/outputs/2026-10-28_rect_frames/grid-count-80-grain0.png",
+      "pagePng": "my_work/outputs/2026-10-28_rect_frames/grid-count-80-page.png",
+      "canvasSha256": "4228d28296c436d835023d35002a07d962ecd0bac6a76236d60ba8fe1161f9bb"
+    },
+    {
+      "layout": "fan",
+      "layoutLabel": "扇形展开",
+      "countLabel": "6",
+      "grainLabel": "0%",
+      "canvas": [
+        1600,
+        1000
+      ],
+      "canvasPng": "my_work/outputs/2026-10-28_rect_frames/fan-count-6-grain0.png",
+      "pagePng": "my_work/outputs/2026-10-28_rect_frames/fan-count-6-page.png",
+      "canvasSha256": "7458fe54afe075f5449871b185607dd8d31302f264c3ae2386428c82763562e2"
+    },
+    {
+      "layout": "fan",
+      "layoutLabel": "扇形展开",
+      "countLabel": "80",
+      "grainLabel": "0%",
+      "canvas": [
+        1600,
+        1000
+      ],
+      "canvasPng": "my_work/outputs/2026-10-28_rect_frames/fan-count-80-grain0.png",
+      "pagePng": "my_work/outputs/2026-10-28_rect_frames/fan-count-80-page.png",
+      "canvasSha256": "d42887effcf73f666838adf8b4e32f5b4422e7fbad947eb2700d68ab8c9c7fca"
+    },
+    {
+      "layout": "ribbon",
+      "layoutLabel": "条带织纹",
+      "countLabel": "6",
+      "grainLabel": "0%",
+      "canvas": [
+        1600,
+        1000
+      ],
+      "canvasPng": "my_work/outputs/2026-10-28_rect_frames/ribbon-count-6-grain0.png",
+      "pagePng": "my_work/outputs/2026-10-28_rect_frames/ribbon-count-6-page.png",
+      "canvasSha256": "4c3b5de532981c2ba1dc525a956c1aabf9cf3732b0ce0f47057ca81efbf2bbfe"
+    },
+    {
+      "layout": "ribbon",
+      "layoutLabel": "条带织纹",
+      "countLabel": "80",
+      "grainLabel": "0%",
+      "canvas": [
+        1600,
+        1000
+      ],
+      "canvasPng": "my_work/outputs/2026-10-28_rect_frames/ribbon-count-80-grain0.png",
+      "pagePng": "my_work/outputs/2026-10-28_rect_frames/ribbon-count-80-page.png",
+      "canvasSha256": "e3c338be41e2b5167e31098199ca31e59fe1daafa85165076d2d6b5d0fafd9f3"
+    }
+  ],
+  "browserCrossCheck": {
+    "canvas": [
+      1600,
+      1000
+    ],
+    "n": 80,
+    "first": {
+      "x": 192,
+      "y": 106,
+      "w": 668.7121074289084,
+      "h": 168.99444169700146,
+      "rot": -10
+    },
+    "last": {
+      "x": 3318.1646760144085,
+      "y": 2369.001973112779,
+      "w": 647.381706173122,
+      "h": 170.03176949769258,
+      "rot": -2
+    }
+  },
+  "frameNote": "Each frame clicks Reset (seed 8105 and the HTML defaults), then sets layout, count and grain 0. The window was requested at 1440×900; the captured page PNGs are 1440×813. Canvas PNGs are the 1600×1000 drawing buffer."
+}
